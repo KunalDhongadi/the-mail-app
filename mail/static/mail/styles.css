@@ -1,0 +1,441 @@
+:root {
+    --primary: #6bffc4;
+    --border: #3b3b3b;
+  }
+
+
+/* font-family: 'Libre Franklin', sans-serif; */
+body{
+    background-color: #1f1f1f;
+    font-family: 'Libre Franklin', sans-serif;
+}
+a{
+  color: var(--primary);  
+}
+
+/* animation to archive the email. */
+@keyframes hide{
+    0%{
+        opacity: 1;
+    }
+    25%{
+        opacity: 0.2;
+        height: 10px;
+        line-height: 0px;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 0;
+        height: 0px;
+        line-height: 0px;
+        padding: 0px;
+    }
+}
+
+
+.left-menu > div{
+    /* border: 1px solid #6c6c6c; */
+    border-radius: 4px;
+}
+
+.user-email{
+    height: 60px;
+    background-color: var(--primary);
+    border-bottom: 1px solid #6c6c6c;
+    border-radius: 4px 4px 0px 0px;
+    color: #334950;
+    padding: 12px;
+}
+
+.menu-items{
+    background-color: #2d2d2d;
+    padding-bottom: 16px;
+    border-radius: 0px 0px 4px 4px;
+}
+
+.active-menu-btn{
+    padding-left: 14px !important;
+    color: white !important;
+    font-style: normal !important;
+    /* background: #2a5d3d; */
+    /* background: linear-gradient(90deg, #2a5d3d 0%, #222222 100%); */
+}
+
+.active-menu-btn:before{
+    content: "";
+    padding-left: 2px;
+    position: relative;
+    left: -14px;
+    background-color: var(--primary);
+    border-radius: 4px;
+}
+
+.menu-items button, .menu-items a{
+    width: 100%;
+    text-align: left;
+    padding: 8px 12px;
+    border-radius: 0px !important;
+    border: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    background-color: #252525 !important;
+    color: #767676;
+    font-style: italic;
+    transition: 0.2s ease;
+}
+.menu-items button:hover, .menu-items a:hover{
+    background-color: #252525;
+    color: white;
+    padding-left: 18px;
+    border-bottom: 1px solid rgb(67, 67, 67);
+    font-style: normal;
+    /* transition: 0.4s; */
+}
+
+
+.user-email p{
+    font-size: 12px;
+}
+
+.user-email h4{
+    font-size: 18px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* .right-body{
+    background-color: #292929;
+    border-radius: 4px;
+    border: 1px solid #6c6c6c;
+} */
+
+
+#emails-view{
+    background-color: #2d2d2d;
+    border-radius: 4px;
+}
+
+.email-div{
+    height: 60px;
+    box-sizing: border-box;
+    background-color: #2d2d2d;
+    border-bottom: 1px solid var(--border);
+    color: white;
+    display: flex;
+    flex-direction: row;
+    animation-name: hide;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+    cursor: pointer;
+}
+
+.email-read{
+    background-color: #262626 !important;
+}
+
+.email-read p{
+    font-weight: 200 !important;
+}
+
+.inbox-title{
+    height: 60px;
+    margin: 0px;
+    padding: 16px; 
+    background-color: #2d2d2d;
+    border-radius: 4px 4px 0px 0px;
+    border-bottom: 1px solid var(--border);
+    color: white;
+}
+
+
+.email-div > p{
+    font-weight: 500;
+    line-height: 100%;
+    margin: auto auto;
+    padding: 10px 16px;
+}
+
+.email-div:hover{
+    background-color: #31443c !important;
+    transition: 0.4s;
+    /* -webkit-box-shadow: 0px 1px 8px -1px rgba(0,0,0,0.46);
+    -moz-box-shadow: 0px 1px 8px -1px rgba(0,0,0,0.46);
+    box-shadow: 0px 1px 8px -1px rgba(0,0,0,0.46); */
+}
+
+.email-div:hover .timestamp {
+    display: none;
+}
+
+.email-div:hover .except-sent{
+    display: block !important;
+}
+
+.email-div:hover .archive-div {
+    display: block;
+    transition: 0.4s;
+}
+
+.email-div > .sender{
+    font-size: 18px;
+    width: 30%;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.email-div > .subject{  
+    font-size: 18px;
+    width: 50%;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.email-div > .timestamp{  
+    font-size: 14px;
+    width: 20%;
+    float: left;
+    text-align: end;
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;
+    /* white-space: nowrap; */
+}
+
+.email-div > .archive-div{
+    width: 20%;
+    padding: 10px;
+    display: none;
+}
+
+.archive-div > .archive-btn{
+    height: 100%;
+    width: 100%;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 50rem;
+    background-color: #365648;
+    border: none !important;
+    color: #c1c1c1;
+}
+
+.archive-div > .archive-btn:hover{
+    color: white;
+    border: 1px solid var(--border) !important;
+}
+
+
+/* --------------Email view----------- */
+
+#email-view{
+    background-color: #2d2d2d;
+    /* border: 1px solid #6c6c6c; */
+    border-radius: 4px;
+    color: white;
+    margin-bottom: 12px;
+}
+
+.email-view-heading{
+    border-bottom: 1px solid var(--border);
+    background-color: #2d2d2d;
+    border-radius: 4px 4px 0px 0px;
+    height: 60px;
+    padding: 16px;
+}
+
+.email-subject{
+    font-size: 32px;
+}
+
+.user-details{
+    height: 60px;
+}
+
+.user-details h6{
+    font-size: 16px;
+    color: #8e8e8e;
+}
+
+.extra-details{
+    height: 60px;
+}
+.email-btn{
+    border-radius: 50rem;
+    padding: 4px 16px;
+    background-color: #3e3e3e !important;
+    color: #c1c1c1 !important;
+    cursor: pointer;
+}
+
+.email-btn:hover{
+    color: #ffffff !important;
+}
+
+.except-sent-btn{
+    display: none !important;
+}
+
+.reply-btn{
+    margin-left: 10px;
+    float: right;
+}
+
+.email-timestamp{
+    color: #8e8e8e;
+    margin:4px 0px 0px 0px;
+    float: left;
+}
+.email-mailbox{
+    background-color: #3f6656;
+    color: #c8e9db;
+}
+
+.bottom{
+    float: none;
+    margin: 20px 0px 0px 0px;
+}
+
+.email-body{
+    padding: 20px;
+    border-radius: 4px;
+    background-color: #383838;
+    color: white;
+    white-space: pre;
+}
+
+
+/*------------- Compose-email--------- */
+#compose-view{
+    /* border: 1px solid #6c6c6c; */
+    background-color: #2d2d2d;
+    color: white;
+    border-radius: 4px;
+    padding: 0px;
+}   
+
+.page-title{
+    border-bottom: 1px solid var(--border);
+    background-color: #2d2d2d;
+    border-radius: 4px 4px 0px 0px;
+    height: 60px;
+    padding: 16px;
+}
+
+#compose-form input , #compose-form textarea{
+    background-color: #2b2b2b;
+    border: 1px solid var(--border);
+    color: white;
+
+}
+
+#compose-form input::placeholder , #compose-form textarea::placeholder{
+    color:gray;
+}
+
+#compose-form input:focus , #compose-form textarea:focus{
+    outline: 1px solid #6bffc4;
+    box-shadow: none;
+}
+
+#compose-form label{
+    font-size: 12px;
+    color: #7f7f7f;
+}
+
+/* #submit-btn{
+
+} */
+
+/* responsive */
+@media only screen and (max-width: 800px) {
+
+    .main-body{
+        display: block !important;
+    }
+
+    .left-menu{
+        width: 100%;
+    }
+
+    .right-body{
+        width: 100%;
+    }
+
+    .menu-items{
+        display: flex;
+    }
+
+    .menu-items button, .menu-items a{
+        text-align: center;
+        font-size: 12px;
+        padding: 12px 0px;
+    }
+
+    .menu-items .active-menu-btn{
+        background: none;
+        /* background-color: #2a5d3d !important; */
+        padding-left: 0px !important;
+        border-bottom: 1px solid var(--primary) !important;
+    }
+
+    .menu-items button:hover, .menu-items a:hover{
+        padding-left: 0px;
+    }
+
+    .active-menu-btn:before{
+        display: none;
+    }
+    
+    
+
+  }
+
+
+
+/* login  */
+.login-div{
+    background-color:#2d2d2d;
+    color: white;
+    border-radius: 4px;
+}
+
+.login-div input{
+    background-color: #2b2b2b;
+    border: 1px solid var(--border);
+    color: white;
+}
+
+.login-div input::placeholder{
+    color: gray;
+}
+
+.login-div input:focus{
+    background-color: #2b2b2b;
+    border: 1px solid var(--primary);
+    color: white;
+    box-shadow: none;
+}
+
+/* .login-div input[type=submit]{
+    border: 2px solid #6bffc4;
+} */
+.login-div input[type=submit]:hover{
+    background-color: var(--primary) !important;
+    color: #334950 !important;
+}
+
+
+
+/* alert */
+.alert-primary{
+    color: #c2ffe3;
+    background-color: #3f6656;
+    border: 1px solid #6bffc4;
+}
+

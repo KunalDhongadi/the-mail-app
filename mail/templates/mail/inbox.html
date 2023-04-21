@@ -1,0 +1,120 @@
+{% extends "mail/layout.html" %} {% load static %} {% block body %}
+<div class="d-flex gap-3 main-body">
+
+    <div class="col-3 mt-4 left-menu">
+      <div>
+      <div class="user-email">
+        <p class="m-0">Signed in as</p>
+        <h4 class="">{{ request.user.email }}</h4>
+      </div>
+        
+        <div class="menu-items">
+          <button class="btn" id="inbox">Inbox</button>
+          <button class="btn" id="compose">Compose</button>
+          <button class="btn" id="sent">Sent</button>
+          <button class="btn" id="archive">Archived</button>
+          <a class="btn" href="{% url 'logout' %}">Log Out</a>
+        </div>
+      </div>
+      </div>
+      
+      <div class="col-9 mt-4 right-body">
+        <div id="emails-view" class="container p-0 pb-3"></div>
+        <div id="email-view" class="container p-0">
+          <div class="email-view-heading">
+            <div class="d-inline-flex gap-2 align-items-center email-btn back-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+              </svg>
+              <p class="p-0 m-0">Back</p>
+            </div>
+            
+            <div class="d-inline-flex gap-2 align-items-center email-btn e-archive-btn ms-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive" viewBox="0 0 16 16">
+                <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1V2zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5H2zm13-3H1v2h14V2zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+              </svg>
+              <p class="p-0 m-0"></p>
+            </div>
+          </div>
+      
+          <div class="email-page p-3">
+            <div class="email-title">
+              <p><span class="email-mailbox badge fw-normal"></span></p>
+              <h3 class="email-subject"></h3>
+            </div>
+
+
+            <div class="w-100">
+              <div class="user-details">
+                <h6 class="email-sender"></h6>
+                <h6 class="email-reciever"></h6>
+              </div>
+            </div>
+
+            <div class="extra-details">
+              <input
+                type="submit"
+                value="Reply"
+                class="reply-btn email-btn btn"
+              />
+              <p class="email-timestamp"></p>
+            </div>
+            
+            <div class="email-body"></div>
+            <input
+              type="submit"
+              value="Reply"
+              class="reply-btn email-btn btn bottom"
+            />
+          </div>
+        </div>
+      
+        <div id="compose-view" class="container mb-5">
+          <h3 class="page-title m-0"></h3>
+          <form id="compose-form">
+            <div class="form-group p-3 pb-0">
+              <label for="from" class="form-label mb-1">From - </label>
+              <input
+                disabled
+                class="form-control"
+                value="{{ request.user.email }}"
+                placeholder="Enter recipeints email address"
+                name="from"
+              />
+            </div>
+            <div class="form-group p-3 pb-3" style="border-bottom: 1px solid #3b3b3b;">
+              <label for="to" class="form-label mb-1">To -</label>
+              <input id="compose-recipients" class="form-control" />
+            </div>
+            <div class="form-group p-3 pb-0">
+              <input
+                class="form-control"
+                id="compose-subject"
+                placeholder="Subject"
+              />
+            </div>
+            <div class="p-3" style="border-bottom: 1px solid #3b3b3b;">
+              <textarea class="form-control" rows="6"id="compose-body" placeholder="Email body"></textarea>
+            </div>
+            
+            <div
+              class="message alert alert-primary p-3 m-3 mb-0"
+              role="alert"
+              style="display: none; margin: 10px 0px 0px 0px"
+            ></div>
+            <input
+              type="submit"
+              class="btn email-btn mt-3 m-3"
+              id="submit-btn"
+              value="Send"
+            />
+          </form>
+        </div>
+      </div>
+
+</div>
+
+
+{% endblock %} {% block script %}
+<script src="{% static 'mail/inbox.js' %}"></script>
+{% endblock %}
