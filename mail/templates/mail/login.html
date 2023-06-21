@@ -2,9 +2,9 @@
 
 {% block body %}
 
-    <div class="container" style="width: 450px;margin: 150px auto;">
+    <div class="container auth-container" style="width: 420px;margin: 150px auto;">
         <div class="login-div p-4">
-            <h2 class="mb-3">Login</h2>
+            <h2 class="mb-3" style="font-size : 20px">Login</h2>
 
             {% if message %}
                 <div class="alert alert-primary" role="alert">
@@ -32,7 +32,7 @@
         <div class="login-div p-4 mt-4">
             <p class="mb-2">Want to explore?</p>
 
-            <form action="{% url 'login' %}" method="post">
+            <form action="{% url 'guestLogin' %}" method="post">
                 {% csrf_token %}
                 <input class="btn email-btn w-100" type="submit" value="Guest Login">
             </form>

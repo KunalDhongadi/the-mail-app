@@ -184,3 +184,10 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "mail/register.html")
+
+
+def guestLogin(request):
+    user = authenticate(request, username="jondough@mail.com", password="jondough")
+    if user is not None:
+        login(request, user)
+        return HttpResponseRedirect(reverse("index"))
