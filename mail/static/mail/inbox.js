@@ -25,22 +25,33 @@ function set_menuItem_active(mailbox) {
   document.getElementById(mailbox).classList.add("active-menu-btn");
 }
 
-function format_timestamp(timestamp) {
+function format_timestamp(timestamp, isShort) {
   //format timestamp to a shorter one
   const date = new Date(timestamp);
 
-  const today = new Date();
   let new_timestamp;
-  if (date.toDateString() === today.toDateString()) {
-    new_timestamp = date.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  } else {
-    new_timestamp = date.toLocaleDateString([], {
-      month: "short",
-      day: "numeric",
-    });
+  if(isShort){
+    const today = new Date();
+    if (date.toDateString() === today.toDateString()) {
+      new_timestamp = date.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    } else {
+      new_timestamp = date.toLocaleDateString([], {
+        month: "short",
+        day: "numeric",
+      });
+    }
+  }else{
+    new_timestamp=date.toLocaleDateString([],{
+      weekday: 'long', // Display the full weekday name (e.g., "Monday")
+      month: 'short', // Display the abbreviated month name (e.g., "Jul")
+      day: 'numeric', // Display the day of the month (e.g., "22")
+      hour: 'numeric', // Display the hour (e.g., "5")
+      minute: '2-digit', // Display minutes with leading zeros (e.g., "05")
+      hour12: true // Use 12-hour format with AM/PM
+    })
   }
   return new_timestamp;
 }
@@ -109,7 +120,7 @@ function compose_email(emailId = null) {
         .then((response) => response.json())
         .then((result) => {
           // Print result
-          console.log(result);
+          // console.log(result);
           if ("message" in result) {
             load_mailbox("sent");
           }
@@ -137,17 +148,18 @@ function load_mailbox(mailbox) {
   document.querySelector("#compose-view").style.display = "none";
   document.querySelector("#email-view").style.display = "none";
 
-  // Show the mailbox name
-  document.querySelector(
-    "#emails-view"
-  ).innerHTML = `<h3 class='inbox-title' >${
-    mailbox.charAt(0).toUpperCase() + mailbox.slice(1)
-  }</h3>`;
 
   fetch(`/emails/${mailbox}`)
     .then((response) => response.json())
     .then((emails) => {
-      console.log(emails);
+      // console.log(emails);
+
+       // Show the mailbox name
+      document.querySelector(
+        "#emails-view"
+      ).innerHTML = `<div class='inbox-title d-flex align-items-center'><h3 class="m-0">${
+        mailbox.charAt(0).toUpperCase() + mailbox.slice(1)
+      } <span class="inbox_count px-3 ms-2 fs-6 text-secondary border border-secondary rounded-pill">${emails.length}</span></h3></div>`;
 
       // If the mailbox is empty
       if (emails.length == 0) {
@@ -164,7 +176,7 @@ function load_mailbox(mailbox) {
         emaildiv.className = "email-div";
 
         //format timestamp to a shorter one
-        let formatted_timestamp = format_timestamp(email.timestamp);
+        let formatted_timestamp = format_timestamp(email.timestamp, true);
 
         if (mailbox !== "sent") {
           emaildiv.innerHTML = `
@@ -174,7 +186,7 @@ function load_mailbox(mailbox) {
           `;
         } else {
           emaildiv.innerHTML = `
-            <p class='sender'>${email.sender}</p>
+            <p class='sender'>to: ${email.recipients}</p>
             <p class='subject'>${email.subject}- <span class="body" style="font-weight:lighter;">${email.body}</span></p> 
             <p class='timestamp except-sent'>${formatted_timestamp}</p>
           `;
@@ -219,6 +231,8 @@ function load_mailbox(mailbox) {
                 archived: !email.archived,
               }),
             });
+
+            document.getElementsByClassName("inbox_count")[0].innerHTML = parseInt(document.getElementsByClassName("inbox_count")[0].innerHTML) - 1;
           } else {
             openEmail(email.id, mailbox);
           }
@@ -273,7 +287,7 @@ function openEmail(emailId, mailbox) {
       document.querySelector(".email-reciever").innerHTML =
         "To : " + emailbody.recipients;
       document.querySelector(".email-timestamp").innerHTML =
-        emailbody.timestamp;
+      format_timestamp(emailbody.timestamp, false);
       document.querySelector(".email-body").innerHTML = emailbody.body;
 
       // To go to previous page.
